@@ -1,19 +1,20 @@
 /**
- * HelloApp UC1-UC5: Display "Hello World", Multiple Names, or Default Message using Enhanced For Loop
+ * HelloApp UC1-UC6: Display "Hello World", Multiple Names, or Default Message using substring()
  *
  * UC1: Display "Hello World"
  * UC2: Accept a name as command-line argument and display "Hello, [name]!"
  * UC3: Display "Hello" with Command-Line Argument or Default Message using ternary operator
  * UC4: Display "Hello" with Multiple Command-Line Arguments or Default Message
- * UC5: Display "Hello" with Multiple Command-Line Arguments using Enhanced For Loop or Default Message
+ * UC5: Display "Hello" with Multiple Command-Line Arguments using Enhanced For Loop
+ * UC6: Display "Hello" with Multiple Command-Line Arguments using substring to Remove Trailing Delimiter
  *
  * Description:
  * The app accepts zero or more command-line arguments and prints a greeting. It uses an
- * enhanced for loop (for-each loop) to process multiple names. If no arguments are provided,
- * it displays the default greeting: "Hello, World!".
+ * enhanced for loop to process multiple names and the substring method to remove the 
+ * trailing delimiter. If no arguments are provided, it displays "Hello, World!".
  *
  * @author Ankush Wadehra
- * @version 5.0.0
+ * @version 6.0.0
  */
 public class HelloApp {
 
@@ -22,8 +23,8 @@ public class HelloApp {
      *
      * This method serves as the entry point for program execution.
      * It reads command-line arguments and builds a comma-separated list of names.
-     * Use args.length == 0 to detect missing arguments.
-     * Use for (String name : args) to iterate through all arguments.
+     * Uses an enhanced for loop to append names and a trailing delimiter, then 
+     * removes the trailing delimiter using substring() after construction.
      *
      * Usage:
      * java HelloApp                      - Displays "Hello, World!"
@@ -39,16 +40,21 @@ public class HelloApp {
             System.out.println("Hello, World!");
         } else {
             // Build the comma-separated list of names using StringBuilder
-            StringBuilder namesList = new StringBuilder();
+            StringBuilder nameBuilder = new StringBuilder();
             for (String name : args) {
-                // Add a comma and space if the StringBuilder is not empty
-                if (namesList.length() > 0) {
-                    namesList.append(", ");
-                }
-                namesList.append(name);
+                // Append each name followed by a comma and space
+                nameBuilder.append(name).append(", ");
             }
+            
+            // Remove the trailing delimiter using substring()
+            // Always check length > 0 before calling substring() to avoid errors
+            String names = "";
+            if (nameBuilder.length() > 0) {
+                names = nameBuilder.substring(0, nameBuilder.length() - 2);
+            }
+            
             // Display the personalized greeting with all names
-            System.out.println("Hello, " + namesList.toString() + "!");
+            System.out.println("Hello, " + names + "!");
         }
     }
 }
